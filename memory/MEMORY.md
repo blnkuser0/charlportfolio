@@ -1,0 +1,1 @@
+- [Next.js Migration](project_nextjs_migration.md) — Portfolio converted from React+Vite to Next.js 14 single-page at repo root
