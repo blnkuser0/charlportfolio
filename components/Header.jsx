@@ -45,7 +45,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("home");
-  const navRef    = useRef(null);
+  const navRef = useRef(null);
   const burgerRef = useRef(null);
 
   useEffect(() => {
@@ -87,8 +87,10 @@ export default function Header() {
     const handleOutside = (e) => {
       if (
         menuOpen &&
-        navRef.current    && !navRef.current.contains(e.target) &&
-        burgerRef.current && !burgerRef.current.contains(e.target)
+        navRef.current &&
+        !navRef.current.contains(e.target) &&
+        burgerRef.current &&
+        !burgerRef.current.contains(e.target)
       ) {
         setMenuOpen(false);
       }
@@ -98,46 +100,47 @@ export default function Header() {
   }, [menuOpen]);
 
   const toggleTheme = () => setTheme((p) => (p === "light" ? "dark" : "light"));
-  const closeMenu   = () => setMenuOpen(false);
-  const ThemeIcon   = theme === "dark" ? SunIcon : MoonIcon;
+  const closeMenu = () => setMenuOpen(false);
+  const ThemeIcon = theme === "dark" ? SunIcon : MoonIcon;
 
   return (
     <>
       <header className={scrolled ? "scrolled" : ""}>
-        <a href="#home" className="header-brand" onClick={closeMenu}>
-          <span className="brand-icon">&lt;/&gt;</span>
-          Charl.Dev
-        </a>
+        <div className="header-inner">
+          <a href="#home" className="header-brand" onClick={closeMenu}>
+            <span className="brand-icon">&lt;/&gt;</span>
+            Charl.Dev
+          </a>
 
-        <button
-          ref={burgerRef}
-          className={`burger ${menuOpen ? "open" : ""}`}
-          onClick={() => setMenuOpen((p) => !p)}
-          aria-label="Toggle navigation menu"
-          aria-expanded={menuOpen}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+          <button
+            ref={burgerRef}
+            className={`burger ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen((p) => !p)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
 
-        <nav
-          ref={navRef}
-          className={`header-nav ${menuOpen ? "show" : ""}`}
-          aria-label="Primary navigation"
-        >
-          {navLinks.map(({ label, href }) => (
-            <a
-              key={href}
-              href={href}
-              onClick={closeMenu}
-              className={active === href.slice(1) ? "nav-active" : ""}
-            >
-              {label}
-            </a>
-          ))}
+          <nav
+            ref={navRef}
+            className={`header-nav ${menuOpen ? "show" : ""}`}
+            aria-label="Primary navigation"
+          >
+            {navLinks.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={closeMenu}
+                className={active === href.slice(1) ? "nav-active" : ""}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
 
-          {/* Desktop-only — hidden on mobile via CSS */}
           <button
             className="theme-toggle-btn"
             onClick={toggleTheme}
@@ -146,7 +149,7 @@ export default function Header() {
           >
             <ThemeIcon />
           </button>
-        </nav>
+        </div>
       </header>
 
       {/* Mobile-only floating theme button */}
