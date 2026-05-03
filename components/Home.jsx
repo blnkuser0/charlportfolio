@@ -1,11 +1,11 @@
-'use client';
-import useTypingText from '../hooks/useTypingText';
+"use client";
+import useTypingText from "../hooks/useTypingText";
 
 export default function Home() {
   const role = useTypingText(
-    ['Web Developer', 'Full Stack Developer'],
+    ["Web Developer", "Full Stack Developer"],
     80,
-    1500
+    1500,
   );
 
   return (
@@ -39,9 +39,10 @@ export default function Home() {
 
         <div className="hero-actions">
           <a
-            href="/Resume/Narvaez_CV.pdf"
-            download="CharlEduardNarvaez_CV.pdf"
+            href="/Resume/Charl_Eduard_Narvaez_CV.pdf"
+            download="Charl-Eduard-CV"
             className="btn-primary"
+            title="Download my latest CV"
           >
             Download CV
             <svg
@@ -99,13 +100,41 @@ export default function Home() {
       <div className="hero-image-wrap">
         <div className="hero-image-glow" />
 
-        <div className="hero-float-icon hero-float-left">&lt;/&gt;</div>
+        <div className="hero-float-icon hero-float-left" aria-hidden>
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="8 17 3 12 8 7" />
+            <polyline points="16 7 21 12 16 17" />
+            <line x1="14" y1="5" x2="10" y2="19" />
+          </svg>
+        </div>
 
         <div className="hero-image-card">
           <img src="/images/me.png" alt="Charl Eduard Narvaez" />
         </div>
 
-        <div className="hero-float-icon hero-float-right">⚡</div>
+        <div className="hero-float-icon hero-float-right" aria-hidden>
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M13 2 5 14h6l-1 8 8-12h-6l1-8Z" />
+          </svg>
+        </div>
       </div>
 
       {/* ── Scroll-down arrow ── */}
@@ -113,7 +142,9 @@ export default function Home() {
         className="scroll-down"
         aria-label="Scroll to About section"
         onClick={() =>
-          document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+          document
+            .getElementById("about")
+            ?.scrollIntoView({ behavior: "smooth" })
         }
       >
         <svg

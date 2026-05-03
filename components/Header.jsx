@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -45,6 +45,8 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("home");
+  const navRef    = useRef(null);
+  const burgerRef = useRef(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("theme") || "dark";
@@ -80,50 +82,81 @@ export default function Header() {
     return () => observers.forEach((o) => o?.disconnect());
   }, []);
 
+  /* Close menu when clicking outside burger / nav */
+  useEffect(() => {
+    const handleOutside = (e) => {
+      if (
+        menuOpen &&
+        navRef.current    && !navRef.current.contains(e.target) &&
+        burgerRef.current && !burgerRef.current.contains(e.target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, [menuOpen]);
+
   const toggleTheme = () => setTheme((p) => (p === "light" ? "dark" : "light"));
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu   = () => setMenuOpen(false);
+  const ThemeIcon   = theme === "dark" ? SunIcon : MoonIcon;
 
   return (
-    <header className={scrolled ? "scrolled" : ""}>
-      <a href="#home" className="header-brand" onClick={closeMenu}>
-        <span className="brand-icon">&lt;/&gt;</span>
-        Charl.Dev
-      </a>
-
-      <button
-        className={`burger ${menuOpen ? "open" : ""}`}
-        onClick={() => setMenuOpen((p) => !p)}
-        aria-label="Toggle navigation menu"
-      >
-        <span />
-        <span />
-        <span />
-      </button>
-
-      <nav
-        className={`header-nav ${menuOpen ? "show" : ""}`}
-        aria-label="Primary navigation"
-      >
-        {navLinks.map(({ label, href }) => (
-          <a
-            key={href}
-            href={href}
-            onClick={closeMenu}
-            className={active === href.slice(1) ? "nav-active" : ""}
-          >
-            {label}
-          </a>
-        ))}
+    <>
+      <header className={scrolled ? "scrolled" : ""}>
+        <a href="#home" className="header-brand" onClick={closeMenu}>
+          <span className="brand-icon">&lt;/&gt;</span>
+          Charl.Dev
+        </a>
 
         <button
-          className="theme-toggle-btn"
-          onClick={toggleTheme}
-          aria-label="Toggle theme"
-          aria-pressed={theme === "light"}
+          ref={burgerRef}
+          className={`burger ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen((p) => !p)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
         >
-          {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          <span />
+          <span />
+          <span />
         </button>
-      </nav>
-    </header>
+
+        <nav
+          ref={navRef}
+          className={`header-nav ${menuOpen ? "show" : ""}`}
+          aria-label="Primary navigation"
+        >
+          {navLinks.map(({ label, href }) => (
+            <a
+              key={href}
+              href={href}
+              onClick={closeMenu}
+              className={active === href.slice(1) ? "nav-active" : ""}
+            >
+              {label}
+            </a>
+          ))}
+
+          {/* Desktop-only — hidden on mobile via CSS */}
+          <button
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            aria-pressed={theme === "light"}
+          >
+            <ThemeIcon />
+          </button>
+        </nav>
+      </header>
+
+      {/* Mobile-only floating theme button */}
+      <button
+        className="theme-fab"
+        onClick={toggleTheme}
+        aria-label="Toggle theme"
+      >
+        <ThemeIcon />
+      </button>
+    </>
   );
 }
