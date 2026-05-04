@@ -51,7 +51,7 @@ export default function Contact() {
 
   return (
     <section aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Message me</h2>
+      <h2 id="contact-heading">Get In Touch</h2>
       <form onSubmit={sendEmail} aria-label="Contact form">
         <input
           aria-label="Name"
@@ -81,18 +81,46 @@ export default function Contact() {
           onChange={(e) => setForm({ ...form, message: e.target.value })}
           rows={6}
         />
-        <button type="submit" aria-live="polite">Send Message</button>
+        <button type="submit" aria-live="polite">
+          Send Message
+        </button>
       </form>
 
-      {status === 'sending' && <div style={{ marginTop: 8 }}>Sending...</div>}
-      {status === 'sent' && <div style={{ marginTop: 8, color: 'green' }}>Message sent successfully!</div>}
-      {status === 'error' && <div style={{ marginTop: 8, color: 'red' }}>Failed to send message. Try again later.</div>}
+      {status === "sending" && <div style={{ marginTop: 8 }}>Sending...</div>}
+      {status === "sent" && (
+        <div style={{ marginTop: 8, color: "green" }}>
+          Message sent successfully!
+        </div>
+      )}
+      {status === "error" && (
+        <div style={{ marginTop: 8, color: "red" }}>
+          Failed to send message. Try again later.
+        </div>
+      )}
 
-      <div style={{ marginTop: 14, display: 'flex', gap: 12, alignItems: 'center' }} aria-label="Social links">
-        <a href="https://github.com/blnkuser0" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+      <div
+        style={{
+          marginTop: 14,
+          display: "flex",
+          gap: 12,
+          alignItems: "center",
+        }}
+        aria-label="Social links"
+      >
+        <a
+          href="https://github.com/blnkuser0"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
           {SVG.github}
         </a>
-        <a href="https://www.linkedin.com/in/charleduardnarvaez/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <a
+          href="https://www.linkedin.com/in/charleduardnarvaez/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
           {SVG.linkedin}
         </a>
         <a href="mailto:charleduardnarvaez24@gmail.com" aria-label="Email">
