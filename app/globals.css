@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* =============================================
    DARK MODE (default)
    bg: #2C3E50 | accent: #D4AF37 | text: #ECF0F1 | highlight: #F7E7CE
@@ -14,6 +18,19 @@
   --glass: rgba(255, 255, 255, 0.06);
   --dark: rgba(0, 0, 0, 0.25);
   --glow: rgba(212, 175, 55, 0.1);
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-body-color-rgb: 236, 240, 241;
+  --bs-emphasis-color: var(--text);
+  --bs-emphasis-color-rgb: 236, 240, 241;
+  --bs-heading-color: var(--text);
+  --bs-secondary-color: var(--muted);
+  --bs-secondary-color-rgb: 236, 240, 241;
+  --bs-secondary-bg: var(--card);
+  --bs-tertiary-bg: var(--card);
+  --bs-border-color: var(--glass);
+  --bs-link-color: var(--accent);
+  --bs-link-hover-color: var(--accent-2);
   --radius: 12px;
   --gap: 16px;
   --transition: 220ms ease;
@@ -32,6 +49,19 @@
   --accent-2: #f7e7ce;
   --glass: rgba(74, 74, 74, 0.06);
   --glow: rgba(226, 114, 91, 0.3);
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-body-color-rgb: 74, 74, 74;
+  --bs-emphasis-color: var(--text);
+  --bs-emphasis-color-rgb: 74, 74, 74;
+  --bs-heading-color: var(--text);
+  --bs-secondary-color: var(--muted);
+  --bs-secondary-color-rgb: 74, 74, 74;
+  --bs-secondary-bg: var(--card);
+  --bs-tertiary-bg: var(--card);
+  --bs-border-color: var(--glass);
+  --bs-link-color: var(--accent);
+  --bs-link-hover-color: var(--accent-2);
 }
 
 /* =============================================
@@ -54,10 +84,17 @@ body {
   font-size: 15px;
   color: var(--text);
   background: var(--bg);
+  background-color: var(--bg) !important;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+html,
+body {
+  background-color: var(--bg) !important;
+  color: var(--text);
 }
 
 /* =============================================
@@ -475,7 +512,7 @@ section {
    ABOUT SECTION
    ============================================= */
 .about-section {
-  padding: 60px 24px;
+  padding: 50px 24px;
   background: var(--card);
   border: 1px solid var(--glass);
   border-radius: 24px;
@@ -769,9 +806,30 @@ section {
   border-radius: 10px;
   background: var(--card);
   border: 1px solid var(--glass);
+  color: var(--text);
   transition:
     transform var(--transition),
     box-shadow var(--transition);
+}
+
+/* Keep these sections theme-consistent even with Bootstrap defaults present */
+section[aria-labelledby="experience-heading"],
+section[aria-labelledby="certificates-heading"],
+section[aria-labelledby="contact-heading"] {
+  color: var(--text) !important;
+}
+
+section[aria-labelledby="experience-heading"] h2,
+section[aria-labelledby="experience-heading"] div,
+section[aria-labelledby="experience-heading"] p,
+section[aria-labelledby="experience-heading"] span,
+section[aria-labelledby="certificates-heading"] h2,
+section[aria-labelledby="certificates-heading"] p,
+section[aria-labelledby="contact-heading"] h2,
+section[aria-labelledby="contact-heading"] p,
+section[aria-labelledby="contact-heading"] label,
+section[aria-labelledby="contact-heading"] a {
+  color: var(--text) !important;
 }
 
 .timeline-item:hover {
@@ -1095,7 +1153,7 @@ footer {
 
 @media (max-width: 768px) {
   .scroll-to-top {
-    display: none;
+    bottom: max(80px, calc(env(safe-area-inset-bottom) + 80px));
   }
 }
 

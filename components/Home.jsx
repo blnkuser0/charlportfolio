@@ -118,7 +118,7 @@ export default function Home() {
         </div>
 
         <div className="hero-image-card">
-          <img src="/images/me.png" alt="Charl Eduard Narvaez" />
+          <img src="/images/charl.jpg" alt="Charl Eduard Narvaez" />
         </div>
 
         <div className="hero-float-icon hero-float-right" aria-hidden>

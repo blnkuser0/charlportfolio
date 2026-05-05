@@ -44,7 +44,7 @@ export default function About() {
             </span>
             <span className="about-tag">
               <span aria-hidden>✦</span>
-              2+ Years Experience
+              3+ Years Experience
             </span>
           </div>
         </div>
@@ -116,7 +116,7 @@ export default function About() {
                 <path d="M3 12h18" />
               </svg>
             </div>
-            <div className="asc-count">2+</div>
+            <div className="asc-count">3+</div>
             <div className="asc-label">Years Experience</div>
           </div>
           <div className="about-stat-card">
