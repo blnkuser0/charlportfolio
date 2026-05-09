@@ -190,6 +190,9 @@ section,
 
 main {
   padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 /* =============================================
@@ -488,7 +491,7 @@ section {
    ============================================= */
 .section-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 52px;
 }
 
 .section-title {
@@ -499,10 +502,10 @@ section {
 }
 
 .section-underline {
-  width: 60px;
+  width: 48px;
   height: 3px;
   background: var(--accent);
-  border-radius: 2px;
+  border-radius: 99px;
   margin: 0 auto;
 }
 
@@ -510,7 +513,7 @@ section {
    ABOUT SECTION
    ============================================= */
 .about-section {
-  padding: 50px 24px;
+  padding: 72px 32px;
   background: var(--card);
   border: 1px solid var(--glass);
   border-radius: 24px;
@@ -695,7 +698,7 @@ section {
    TECH STACK
    ============================================= */
 .techstack-section {
-  padding: 60px 24px;
+  padding: 80px 32px;
 }
 
 .techstack-grid {
@@ -781,7 +784,7 @@ section {
    EXPERIENCE TIMELINE
    ============================================= */
 .experience-section {
-  padding: 60px 24px;
+  padding: 80px 32px;
 }
 
 .exp-timeline {
@@ -933,10 +936,62 @@ section[aria-labelledby="certificates-heading"] p {
 }
 
 /* =============================================
+   STATS STRIP
+   ============================================= */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--glass);
+  border: 1px solid var(--glass);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.stats-strip-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 20px;
+  background: var(--card);
+  text-align: center;
+  transition: background var(--transition);
+}
+
+.stats-strip-item:hover {
+  background: var(--bg);
+}
+
+.stats-strip-icon {
+  color: var(--accent);
+}
+
+.stats-strip-value {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stats-strip-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 640px) {
+  .stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =============================================
    CERTIFICATES
    ============================================= */
 .certificates-section {
-  padding: 60px 24px;
+  padding: 80px 32px;
 }
 
 .cert-grid {
@@ -1030,7 +1085,7 @@ section[aria-labelledby="certificates-heading"] p {
    PROJECTS
    ============================================= */
 .projects-section {
-  padding: 60px 24px;
+  padding: 80px 32px;
   background: var(--card);
   border: 1px solid var(--glass);
   border-radius: 24px;
@@ -1175,17 +1230,18 @@ section[aria-labelledby="certificates-heading"] p {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 16px;
+  padding: 11px 20px;
   border-radius: 8px;
   background: var(--accent);
   color: var(--bg);
   font-family: "Poppins", sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
   text-decoration: none;
-  border: 1.5px solid var(--accent);
+  border: 2px solid var(--accent);
   transition: all 0.3s ease;
   white-space: nowrap;
+  box-shadow: 0 4px 14px var(--glow);
 }
 
 .btn-live-demo:hover {
@@ -1226,23 +1282,23 @@ section[aria-labelledby="certificates-heading"] p {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 28px;
+  padding: 13px 32px;
   border-radius: 8px;
-  border: 1.5px solid var(--accent);
-  background: transparent;
-  color: var(--accent);
+  border: 2px solid var(--accent);
+  background: var(--accent);
+  color: var(--bg);
   font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 15px;
   text-decoration: none;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 18px var(--glow);
 }
 
 .btn-view-all:hover {
-  background: var(--accent);
-  color: var(--bg);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px var(--glow);
+  filter: brightness(1.12);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px var(--glow);
 }
 
 /* =============================================
@@ -1282,7 +1338,7 @@ section[aria-labelledby="certificates-heading"] p {
    CONTACT / FORMS
    ============================================= */
 .contact-section {
-  padding: 60px 24px;
+  padding: 80px 32px;
 }
 
 .contact-card {
@@ -1584,7 +1640,7 @@ section[aria-labelledby="certificates-heading"] p {
     font-size: 1.2rem;
   }
   .stat-label {
-    font-size: 10px;
+    font-size: 11px;
   }
   .stat-divider {
     height: 30px;
@@ -1605,6 +1661,25 @@ section[aria-labelledby="certificates-heading"] p {
   }
   .hero-float-right {
     right: -12px;
+  }
+
+  /* Section gap */
+  main {
+    gap: 16px;
+  }
+
+  /* Stats strip */
+  .stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stats-strip-item {
+    padding: 20px 12px;
+  }
+  .stats-strip-value {
+    font-size: 1.5rem;
+  }
+  .stats-strip-label {
+    font-size: 11px;
   }
 
   /* About */
@@ -1936,22 +2011,23 @@ textarea:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 13px 28px;
   border-radius: 8px;
   background: var(--accent);
   color: var(--bg);
   font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 15px;
   text-decoration: none;
-  border: 1.5px solid var(--accent);
+  border: 2px solid var(--accent);
   transition: all 0.3s ease;
   cursor: pointer;
+  box-shadow: 0 4px 18px var(--glow);
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 28px var(--glow);
+  box-shadow: 0 12px 32px var(--glow);
   filter: brightness(1.12);
 }
 
@@ -1959,23 +2035,24 @@ textarea:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 13px 28px;
   border-radius: 8px;
-  border: 1.5px solid var(--muted);
+  border: 2px solid var(--accent);
   background: transparent;
-  color: var(--text);
+  color: var(--accent);
   font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 15px;
   text-decoration: none;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .btn-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-2px);
+  background: var(--accent);
+  color: var(--bg);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px var(--glow);
 }
 
 /* ── Stats ── */

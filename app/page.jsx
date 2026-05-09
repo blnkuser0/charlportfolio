@@ -1,5 +1,6 @@
 import Header from '../components/Header';
 import Home from '../components/Home';
+import StatsStrip from '../components/StatsStrip';
 import About from '../components/About';
 import TechStack from '../components/TechStack';
 import Experience from '../components/Experience';
@@ -16,6 +17,7 @@ export default function Page() {
       <Header />
       <main>
         <div id="home"><Home /></div>
+        <StatsStrip />
         <div id="about"><About /></div>
         <div id="tech-stack"><TechStack /></div>
         <div id="projects"><Projects items={projects.slice(0, 3)} showViewAll /></div>

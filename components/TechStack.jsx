@@ -56,7 +56,6 @@ const categories = [
       { name: 'REST API',    dot: '#ff6b6b' },
       { name: 'TypeScript',  dot: '#0769ad' },
       { name: 'Java',        dot: '#f89820' },
-      { name: 'Java Swing',  dot: '#f89820' },
       { name: 'Laravel',     dot: '#ff2d20' },
     ],
   },

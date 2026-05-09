@@ -1,9 +1,25 @@
 import projects from "../data/projects.js";
 import certificates from "../data/certificates.js";
+import experiences from "../data/experiences.js";
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function getYearsExp(exps) {
+  let earliest = new Date();
+  exps.forEach((exp) => {
+    const startStr = exp.period.split(' - ')[0].trim();
+    const [mon, year] = startStr.split(' ');
+    const d = new Date(parseInt(year), MONTHS.indexOf(mon), 1);
+    if (d < earliest) earliest = d;
+  });
+  return Math.floor((new Date() - earliest) / (1000 * 60 * 60 * 24 * 365.25));
+}
 
 export default function About() {
   const projectCount = projects.length;
   const certCount = certificates.length;
+  const expCount = experiences.length;
+  const yearsExp = getYearsExp(experiences);
 
   return (
     <section className="about-section" aria-labelledby="about-heading">
@@ -19,15 +35,20 @@ export default function About() {
         <div className="about-bio-card">
           <h3 className="bio-headline">Passionate Developer with a Vision</h3>
           <p className="bio-text">
-            With 2+ years of experience in web development, I specialize in
-            building scalable, performant full-stack applications. My journey in
-            tech started with a curiosity for how the web works, evolving into a
-            passion for crafting solutions that make a real difference.
+            I&apos;ve been working on web applications across both frontend and backend, 
+            building features, improving system workflows, fixing production issues, 
+            and refining user experiences. My work usually involves handling real business 
+            requirements — from API integrations and validation logic to UI improvements, 
+            realtime functionality, and system debugging.
           </p>
           <p className="bio-text">
-            I believe in writing clean, maintainable code and staying updated
-            with the latest technologies. When I&apos;m not coding, you&apos;ll
-            find me exploring new frameworks and working on personal projects.
+             I enjoy improving existing systems just as much as building new features.
+             A big part of my experience comes from working through edge cases, testing flows, 
+             optimizing usability, and making sure features are stable and reliable before deployment.
+          </p>
+          <p className="bio-text">
+           Outside of day-to-day development, I spend time exploring new tools, improving my 
+           workflow, and building personal projects to keep sharpening my skills.
           </p>
           <div className="about-tags">
             <span className="about-tag">
@@ -43,8 +64,7 @@ export default function About() {
               Philippines
             </span>
             <span className="about-tag">
-              <span aria-hidden>✦</span>
-              3+ Years Experience
+              {yearsExp}+ Years Experience
             </span>
           </div>
         </div>
@@ -116,7 +136,7 @@ export default function About() {
                 <path d="M3 12h18" />
               </svg>
             </div>
-            <div className="asc-count">3+</div>
+            <div className="asc-count">{yearsExp}+</div>
             <div className="asc-label">Years Experience</div>
           </div>
           <div className="about-stat-card">
@@ -135,7 +155,7 @@ export default function About() {
                 <path d="M13 2 5 14h6l-1 8 8-12h-6l1-8Z" />
               </svg>
             </div>
-            <div className="asc-count">3+</div>
+            <div className="asc-count">{expCount}+</div>
             <div className="asc-label">Work Experiences</div>
           </div>
         </div>

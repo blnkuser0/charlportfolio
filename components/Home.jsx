@@ -1,7 +1,23 @@
 "use client";
 import useTypingText from "../hooks/useTypingText";
+import projects from "../data/projects";
+import experiences from "../data/experiences";
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function getYearsExp(exps) {
+  let earliest = new Date();
+  exps.forEach((exp) => {
+    const startStr = exp.period.split(' - ')[0].trim();
+    const [mon, year] = startStr.split(' ');
+    const d = new Date(parseInt(year), MONTHS.indexOf(mon), 1);
+    if (d < earliest) earliest = d;
+  });
+  return Math.floor((new Date() - earliest) / (1000 * 60 * 60 * 24 * 365.25));
+}
 
 export default function Home() {
+  const yearsExp = getYearsExp(experiences);
   const role = useTypingText(
     ["Web Developer", "Full Stack Developer"],
     80,
@@ -32,9 +48,12 @@ export default function Home() {
         </div>
 
         <p className="hero-desc">
-          Building robust, scalable backend systems with modern technologies.
-          Passionate about clean architecture, efficient APIs, and solving
-          complex problems that drive real business impact.
+          I build and improve web applications with a focus on real-world usability 
+          from backend logic and API integrations to frontend experience and system reliability. 
+          Most of my work involves refining workflows, fixing edge-case issues, 
+          optimizing user interactions, and making complex systems feel smooth and intuitive 
+          for both admins and end users. I enjoy turning rough or incomplete features into polished, 
+          production-ready experiences through continuous testing, debugging, and iteration.
         </p>
 
         <div className="hero-actions">
@@ -80,17 +99,17 @@ export default function Home() {
 
         <div className="hero-stats">
           <div className="stat">
-            <div className="stat-value">2+</div>
+            <div className="stat-value">{yearsExp}+</div>
             <div className="stat-label">Years Exp.</div>
           </div>
           <div className="stat-divider" />
           <div className="stat">
-            <div className="stat-value">5+</div>
+            <div className="stat-value">{projects.length}+</div>
             <div className="stat-label">Projects</div>
           </div>
           <div className="stat-divider" />
           <div className="stat">
-            <div className="stat-value">3+</div>
+            <div className="stat-value">{experiences.length}+</div>
             <div className="stat-label">Experiences</div>
           </div>
         </div>
