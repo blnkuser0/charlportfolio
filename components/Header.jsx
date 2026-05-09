@@ -2,13 +2,13 @@
 import { useEffect, useRef, useState } from "react";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Tech", href: "#tech-stack" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Certificates", href: "#certificates" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "home" },
+  { label: "About", href: "about" },
+  { label: "Tech", href: "tech-stack" },
+  { label: "Projects", href: "projects" },
+  { label: "Experience", href: "experience" },
+  { label: "Certificates", href: "certificates" },
+  { label: "Contact", href: "contact" },
 ];
 
 const SunIcon = () => (
@@ -66,13 +66,16 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const ids = navLinks.map((l) => l.href.slice(1));
+    const ids = navLinks.map((l) => l.href);
     const observers = ids.map((id) => {
       const el = document.getElementById(id);
       if (!el) return null;
       const obs = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) setActive(id);
+          if (entry.isIntersecting) {
+            setActive(id);
+            history.replaceState(null, '', `/${id}`);
+          }
         },
         { threshold: 0.35 },
       );
@@ -103,11 +106,19 @@ export default function Header() {
   const closeMenu = () => setMenuOpen(false);
   const ThemeIcon = theme === "dark" ? SunIcon : MoonIcon;
 
+  const scrollToSection = (id, e) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+    history.pushState(null, '', `/${id}`);
+    closeMenu();
+  };
+
   return (
     <>
       <header className={scrolled ? "scrolled" : ""}>
         <div className="header-inner">
-          <a href="#home" className="header-brand" onClick={closeMenu}>
+          <a href="#home" className="header-brand" onClick={(e) => scrollToSection("home", e)}>
             <span className="brand-icon">&lt;/&gt;</span>
             Charl.Dev
           </a>
@@ -132,9 +143,9 @@ export default function Header() {
             {navLinks.map(({ label, href }) => (
               <a
                 key={href}
-                href={href}
-                onClick={closeMenu}
-                className={active === href.slice(1) ? "nav-active" : ""}
+                href={`#${href}`}
+                onClick={(e) => scrollToSection(href, e)}
+                className={active === href ? "nav-active" : ""}
               >
                 {label}
               </a>
