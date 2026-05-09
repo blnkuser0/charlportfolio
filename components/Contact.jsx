@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import emailjs from 'emailjs-com';
+import { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 
 const SVG = {
   github: (
@@ -34,8 +34,15 @@ const SVG = {
 };
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', subject: '', message: '', email: '' });
   const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    if (status === 'sent' || status === 'error') {
+      const t = setTimeout(() => setStatus(null), 5000);
+      return () => clearTimeout(t);
+    }
+  }, [status]);
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -45,12 +52,18 @@ export default function Contact() {
       .send(
         process.env.NEXT_PUBLIC_MY_SERVICE_ID,
         process.env.NEXT_PUBLIC_MY_TEMPLATE_ID,
-        { name: form.name, email: form.email, message: form.message },
-        process.env.NEXT_PUBLIC_MY_PUBLIC_KEY
+        {
+          name: form.name,
+          from_email: form.email,
+          reply_to: form.email,
+          subject: form.subject,
+          message: form.message,
+        },
+        { publicKey: process.env.NEXT_PUBLIC_MY_PUBLIC_KEY }
       )
       .then(() => {
         setStatus('sent');
-        setForm({ name: '', email: '', message: '' });
+        setForm({ name: '', subject: '', message: '', email: '' });
       })
       .catch(() => setStatus('error'));
   };
@@ -73,6 +86,18 @@ export default function Contact() {
               placeholder="Your name"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
+          </div>
+
+          <div className="contact-field">
+            <label className="contact-label" htmlFor="contact-subject">Subject</label>
+            <input
+              id="contact-subject"
+              className="contact-input"
+              required
+              placeholder="What is this about?"
+              value={form.subject}
+              onChange={(e) => setForm({ ...form, subject: e.target.value })}
             />
           </div>
 

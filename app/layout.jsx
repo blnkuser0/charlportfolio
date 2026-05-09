@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './globals.css';
 import BootstrapClient from '../components/BootstrapClient';
+import LoadingScreen from '../components/LoadingScreen';
 
 export const metadata = {
   title: 'Charl Eduard Narvaez — Portfolio',
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/code.png" type="image/png" />
       </head>
       <body>
+        <LoadingScreen />
         {children}
         <BootstrapClient />
       </body>
