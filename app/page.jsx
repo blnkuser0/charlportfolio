@@ -18,7 +18,7 @@ export default function Page() {
         <div id="home"><Home /></div>
         <div id="about"><About /></div>
         <div id="tech-stack"><TechStack /></div>
-        <div id="projects"><Projects items={projects} /></div>
+        <div id="projects"><Projects items={projects.slice(0, 3)} showViewAll /></div>
         <div id="experience"><Experience /></div>
         <div id="certificates"><Certificates /></div>
         <div id="contact"><Contact /></div>

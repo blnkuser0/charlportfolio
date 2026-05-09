@@ -1,8 +1,11 @@
-export default function Projects({ items = [] }) {
+import Link from 'next/link';
+import ProjectImageSlider from './ProjectImageSlider';
+
+export default function Projects({ items = [], title = 'Featured Projects', showViewAll = false }) {
   return (
     <section className="projects-section" aria-labelledby="projects-heading">
       <div className="section-header">
-        <h2 id="projects-heading" className="section-title">Featured Projects</h2>
+        <h2 id="projects-heading" className="section-title">{title}</h2>
         <div className="section-underline" />
       </div>
 
@@ -10,7 +13,10 @@ export default function Projects({ items = [] }) {
         {items.map((it) => (
           <article key={it.id} className="project-card" role="listitem" aria-label={it.title}>
             <div className="project-media">
-              <img src={it.image} alt={it.title} loading="lazy" />
+              <ProjectImageSlider
+                images={it.images ?? (it.image ? [it.image] : [])}
+                alt={it.title}
+              />
             </div>
 
             <div className="project-body">
@@ -57,6 +63,18 @@ export default function Projects({ items = [] }) {
           </article>
         ))}
       </div>
+
+      {showViewAll && (
+        <div className="view-all-wrap">
+          <Link href="/projects" className="btn-view-all">
+            View All Projects
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </Link>
+        </div>
+      )}
     </section>
   );
 }
