@@ -24,6 +24,14 @@
   visibility: hidden;
 }
 
+/* Prevent page scrollbar while loading overlay is active */
+html.loading-active,
+body.loading-active,
+html:has(.ls-root),
+body:has(.ls-root) {
+  overflow: hidden !important;
+}
+
 /* Floating background orbs */
 .ls-orb {
   position: absolute;

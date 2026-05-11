@@ -10,6 +10,24 @@ export default function LoadingScreen() {
   const [gone, setGone] = useState(false);
 
   useEffect(() => {
+    const htmlEl = document.documentElement;
+    const bodyEl = document.body;
+
+    if (!gone) {
+      htmlEl.classList.add('loading-active');
+      bodyEl.classList.add('loading-active');
+    } else {
+      htmlEl.classList.remove('loading-active');
+      bodyEl.classList.remove('loading-active');
+    }
+
+    return () => {
+      htmlEl.classList.remove('loading-active');
+      bodyEl.classList.remove('loading-active');
+    };
+  }, [gone]);
+
+  useEffect(() => {
     const switchText = setTimeout(() => {
       setTextVisible(false);
       setTimeout(() => {
