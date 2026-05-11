@@ -1,9 +1,14 @@
 "use client";
+import { useEffect, useState } from "react";
 import useTypingText from "../hooks/useTypingText";
 import projects from "../data/projects";
 import experiences from "../data/experiences";
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const VIEW_NAMESPACE = "charlportfolio";
+const VIEW_KEY = "portfolio-views";
+const VIEW_SESSION_KEY = "portfolio_view_counted";
+const LOCAL_VIEW_KEY = "portfolio_views_local";
 
 function getYearsExp(exps) {
   let earliest = new Date();
@@ -18,11 +23,52 @@ function getYearsExp(exps) {
 
 export default function Home() {
   const yearsExp = getYearsExp(experiences);
+  const [viewCount, setViewCount] = useState(null);
   const role = useTypingText(
     ["Web Developer", "Full Stack Developer"],
     80,
     1500,
   );
+
+  useEffect(() => {
+    let mounted = true;
+
+    const setLocalCount = () => {
+      const counted = sessionStorage.getItem(VIEW_SESSION_KEY) === "1";
+      const current = Number(localStorage.getItem(LOCAL_VIEW_KEY) || "0");
+      const nextValue = counted ? current : current + 1;
+      if (!counted) {
+        localStorage.setItem(LOCAL_VIEW_KEY, String(nextValue));
+        sessionStorage.setItem(VIEW_SESSION_KEY, "1");
+      }
+      if (mounted) setViewCount(nextValue);
+    };
+
+    const loadViewCount = async () => {
+      try {
+        const counted = sessionStorage.getItem(VIEW_SESSION_KEY) === "1";
+        const endpoint = counted
+          ? `https://api.countapi.xyz/get/${VIEW_NAMESPACE}/${VIEW_KEY}`
+          : `https://api.countapi.xyz/hit/${VIEW_NAMESPACE}/${VIEW_KEY}`;
+
+        const response = await fetch(endpoint, { cache: "no-store" });
+        if (!response.ok) throw new Error("Counter request failed");
+
+        const data = await response.json();
+        if (!counted) sessionStorage.setItem(VIEW_SESSION_KEY, "1");
+        if (mounted && typeof data.value === "number") {
+          setViewCount(data.value);
+        }
+      } catch {
+        setLocalCount();
+      }
+    };
+
+    loadViewCount();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <section className="hero-section" aria-labelledby="home-heading">
@@ -33,7 +79,6 @@ export default function Home() {
       {/* ── Left: Text ── */}
       <div className="hero-content">
         <div className="hero-badge">
-          <span className="badge-spark">✦</span>
           Available for opportunities
         </div>
 
@@ -95,6 +140,16 @@ export default function Home() {
               <polyline points="22,6 12,13 2,6" />
             </svg>
           </a>
+
+          <div className="hero-view-counter" aria-label="Portfolio views" aria-live="polite">
+            <span className="view-eye" aria-hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z" />
+                <circle cx="12" cy="12" r="2.2" />
+              </svg>
+            </span>
+            <span className="view-count-text">{viewCount === null ? "..." : viewCount.toLocaleString()} views</span>
+          </div>
         </div>
 
         <div className="hero-stats">

@@ -258,25 +258,29 @@
 [data-theme="light"] {
   --bg: #f5f5f5;
   --card: #ffffff;
-  --text: #4a4a4a;
-  --muted: rgba(74, 74, 74, 0.55);
+  --text: #1f2937;
+  --muted: rgba(31, 41, 55, 0.82);
   --accent: #e2725b;
   --accent-2: #f7e7ce;
   --glass: rgba(74, 74, 74, 0.06);
   --glow: rgba(226, 114, 91, 0.3);
   --bs-body-bg: var(--bg);
   --bs-body-color: var(--text);
-  --bs-body-color-rgb: 74, 74, 74;
+  --bs-body-color-rgb: 31, 41, 55;
   --bs-emphasis-color: var(--text);
-  --bs-emphasis-color-rgb: 74, 74, 74;
+  --bs-emphasis-color-rgb: 31, 41, 55;
   --bs-heading-color: var(--text);
   --bs-secondary-color: var(--muted);
-  --bs-secondary-color-rgb: 74, 74, 74;
+  --bs-secondary-color-rgb: 31, 41, 55;
   --bs-secondary-bg: var(--card);
   --bs-tertiary-bg: var(--card);
   --bs-border-color: var(--glass);
   --bs-link-color: var(--accent);
   --bs-link-hover-color: var(--accent-2);
+}
+
+[data-theme="light"] p {
+  opacity: 1;
 }
 
 /* =============================================
@@ -404,7 +408,7 @@ section,
 }
 
 main {
-  padding-top: 80px;
+  padding-top: 64px;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -2138,18 +2142,146 @@ textarea:focus-visible {
    ============================================= */
 .hero-section {
   position: relative;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 64px);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 48px;
-  padding: 48px 24px 80px;
+  padding: 12px 24px 80px;
+}
+
+/* Big screens (tall): relaxed breathing space */
+@media (min-width: 1400px) and (min-height: 980px) {
+  .hero-section {
+    gap: 56px;
+    padding: 22px 28px 92px;
+  }
+
+  .hero-badge {
+    margin-bottom: 32px;
+  }
+
+  .hero-role {
+    margin: 18px 0 24px;
+  }
+
+  .hero-desc {
+    margin: 0 0 36px;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    margin-bottom: 44px;
+  }
+
+  .hero-image-card {
+    width: 440px;
+    height: 540px;
+  }
+
+  .scroll-down {
+    bottom: 72px;
+  }
+}
+
+/* Big screens (shorter height): aggressive fit so full home stays visible */
+@media (min-width: 1200px) and (max-height: 950px) {
+  .hero-section {
+    gap: 36px;
+    padding: 12px 24px 40px;
+  }
+
+  .hero-badge {
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.3rem, 4.2vw, 3.3rem);
+  }
+
+  .hero-role {
+    margin: 10px 0 14px;
+    font-size: 1.12rem;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.58;
+    margin: 0 0 18px;
+  }
+
+  .hero-actions {
+    margin-bottom: 22px;
+  }
+
+  .hero-stats {
+    gap: 22px;
+  }
+
+  .hero-image-card {
+    width: 380px;
+    height: 460px;
+  }
+
+  .scroll-down {
+    bottom: 18px;
+  }
+}
+
+/* Ultra-compact fit for short laptop screens */
+@media (min-width: 1200px) and (max-height: 860px) {
+  .hero-section {
+    gap: 28px;
+    padding: 8px 22px 24px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 3.8vw, 2.9rem);
+  }
+
+  .hero-role {
+    margin: 8px 0 10px;
+    font-size: 1.02rem;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    line-height: 1.48;
+    margin: 0 0 12px;
+  }
+
+  .hero-actions {
+    margin-bottom: 14px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .hero-stats {
+    gap: 18px;
+  }
+
+  .stat-value {
+    font-size: 1.35rem;
+  }
+
+  .hero-image-card {
+    width: 340px;
+    height: 410px;
+  }
+
+  .scroll-down {
+    display: none;
+  }
 }
 
 /* ── Left column ── */
 .hero-content {
   flex: 1;
-  max-width: 560px;
+  max-width: 540px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -2166,7 +2298,7 @@ textarea:focus-visible {
   font-size: 13px;
   color: var(--accent);
   font-weight: 400;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
   letter-spacing: 0.01em;
 }
 
@@ -2175,7 +2307,7 @@ textarea:focus-visible {
 }
 
 .hero-title {
-  font-size: clamp(2.8rem, 5.5vw, 4rem);
+  font-size: clamp(2.35rem, 4.9vw, 3.45rem);
   font-weight: 700;
   line-height: 1.15;
   color: var(--text);
@@ -2190,11 +2322,11 @@ textarea:focus-visible {
 }
 
 .hero-role {
-  font-size: 1.25rem;
+  font-size: 1.12rem;
   color: var(--muted);
   font-weight: 400;
   min-height: 1.6em;
-  margin: 16px 0 20px;
+  margin: 10px 0 14px;
   display: flex;
   align-items: center;
   gap: 0;
@@ -2206,11 +2338,11 @@ textarea:focus-visible {
 }
 
 .hero-desc {
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 15px;
+  line-height: 1.62;
   color: var(--muted);
   max-width: 520px;
-  margin: 0 0 32px;
+  margin: 0 0 18px;
   opacity: 1;
 }
 
@@ -2219,20 +2351,80 @@ textarea:focus-visible {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+}
+
+.hero-view-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--glass);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
+}
+
+.view-eye {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.view-eye svg {
+  width: 18px;
+  height: 18px;
+  transform-origin: center;
+  transform-box: fill-box;
+  backface-visibility: hidden;
+  will-change: transform;
+  animation: eyeBlinkSingle 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.view-count-text {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@keyframes eyeBlinkSingle {
+  0%,
+  88%,
+  100% {
+    transform: scaleY(1);
+  }
+  90% {
+    transform: scaleY(0.72);
+  }
+  92% {
+    transform: scaleY(0.38);
+  }
+  94% {
+    transform: scaleY(0.15);
+  }
+  96% {
+    transform: scaleY(0.38);
+  }
+  98% {
+    transform: scaleY(0.72);
+  }
 }
 
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 13px 28px;
+  padding: 11px 22px;
   border-radius: 8px;
   background: var(--accent);
   color: var(--bg);
   font-family: "Poppins", sans-serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
   border: 2px solid var(--accent);
   transition: all 0.3s ease;
@@ -2250,14 +2442,14 @@ textarea:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 13px 28px;
+  padding: 11px 22px;
   border-radius: 8px;
   border: 2px solid var(--accent);
   background: transparent;
   color: var(--accent);
   font-family: "Poppins", sans-serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -2274,7 +2466,7 @@ textarea:focus-visible {
 .hero-stats {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 20px;
 }
 
 .stat {
@@ -2284,7 +2476,7 @@ textarea:focus-visible {
 }
 
 .stat-value {
-  font-size: 1.6rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: var(--text);
   line-height: 1;
@@ -2460,6 +2652,7 @@ textarea:focus-visible {
 @media (max-width: 900px) {
   .hero-section {
     flex-direction: column-reverse;
+    align-items: center;
     text-align: center;
     padding: 32px 16px;
     gap: 32px;
@@ -2480,6 +2673,11 @@ textarea:focus-visible {
   }
 
   .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-view-counter {
+    width: 100%;
     justify-content: center;
   }
 

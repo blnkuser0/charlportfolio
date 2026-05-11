@@ -23,7 +23,7 @@ const projects = [
       "/images/fitout/fit-mess.png",
     ],
     url: "https://fitout-manager-mockup.vercel.app/",
-    github: "https://github.com/devcatalyst07/Fitness-Manager",
+    github: "",
   },
   {
     id: 3,
