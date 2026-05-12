@@ -5,8 +5,6 @@ import projects from "../data/projects";
 import experiences from "../data/experiences";
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const VIEW_NAMESPACE = "charlportfolio";
-const VIEW_KEY = "portfolio-views";
 const VIEW_SESSION_KEY = "portfolio_view_counted";
 const LOCAL_VIEW_KEY = "portfolio_views_local";
 
@@ -47,9 +45,7 @@ export default function Home() {
     const loadViewCount = async () => {
       try {
         const counted = sessionStorage.getItem(VIEW_SESSION_KEY) === "1";
-        const endpoint = counted
-          ? `https://api.countapi.xyz/get/${VIEW_NAMESPACE}/${VIEW_KEY}`
-          : `https://api.countapi.xyz/hit/${VIEW_NAMESPACE}/${VIEW_KEY}`;
+        const endpoint = counted ? "/api/views?mode=get" : "/api/views?mode=hit";
 
         const response = await fetch(endpoint, { cache: "no-store" });
         if (!response.ok) throw new Error("Counter request failed");
